@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <link rel="website icon" type="jpg" href="REP_Logo3.jpg" />
+
+    <style>
+      .nav-link {
+        color: #fff;
+        transition: 0.1s ease;
+      }
+      .nav-link:hover {
+        font-weight: bold;
+        color: #03dac6 !important;
+        border-bottom: 3px solid black;
+        border-right: 3px solid black;
+      }
+      .text-white {
+        color: white;
+      }
+      .text-space {
+        font-size: 20px;
+        text-indent: 15px;
+      }
+
+      /* Form Styling */
+      .booking-form {
+        position: absolute;
+        top: 50%;
+        left: 10%;
+        transform: translateY(-25%);
+        background: rgba(255, 255, 255, 0.9);
+        padding: 20px;
+        border-radius: 10px;
+        max-width: 600px;
+        z-index: 2;
+        width: 90%;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+      }
+      .form-group {
+        margin-top: 15px;
+      }
+      .btn-search {
+        width: 100%;
+        background: orange;
+        color: white;
+        font-size: 18px;
+        border: none;
+        padding: 10px;
+        margin-top: 30px;
+        border-radius: 5px;
+      }
+      .btn-search:hover {
+        border: solid darkorange;
+        background: darkorange;
+        color: white;
+        transition-duration: 0ms;
+      }
+      .pnr {
+        width: 104%;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 500px) {
+        .booking-form {
+          width: 110%; /* Almost full width */
+          height: 130%;
+          left: 5px; /* Center it with margin */
+          margin-right: 100px;
+          padding: 10px; /* Reduce padding */
+          font-size: 10px; /* Make text smaller */
+          background-color: black;
+        }
+
+        /* Fix heading size */
+        .booking-form h3 {
+          font-size: 16px;
+          text-align: center;
+        }
+
+        /* Adjust button size */
+        .btn-search {
+          width: 50%;
+          font-size: 24px;
+          padding: 5px;
+        }
+
+        .pnr {
+          width: 70%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <header>
+      <nav class="navbar navbar-expand-xl bg-light navbar-light fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="#">
+            <img
+              src="REP_Logo3.jpg"
+              alt="RailExpress"
+              style="width: 200px; height: 50px"
+            />
+          </a>
+          <button
+            class="navbar-toggler ms-auto"
+            data-bs-toggle="collapse"
+            data-bs-target="#link"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="link">
+            <ul class="navbar-nav ms-auto" style="margin-right: 100px">
+              <li class="nav-item">
+                <a class="nav-link text-dark text-space" href="#">
+                  <i class="fa fa-home" style="font-size: 24px"></i> Home
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-dark text-space" href="#">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-dark text-space" href="#">Contact Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-dark text-space" href="#">FAQs</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Background Image -->
+    <section>
+      <div style="padding-top: 70px">
+        <img
+          src="Train1.jpg"
+          alt="Vande Bharat Train"
+          style="width: 100%; height: 820px; position: absolute; z-index: 1"
+        />
+
+        <!-- Booking Form -->
+        <div class="booking-form">
+          <h3 class="text-center" style="color: darkblue; font-size: 40px">
+            BOOK TICKET
+          </h3>
+          <form action="#" method="post">
+            <div class="row">
+              <!-- From -->
+              <div class="col-md-5">
+                <label style="color: darkblue; font-size: 20px">From :</label>
+                <select class="form-control" style="cursor: pointer" required>
+                  <i class="fa fa-location-arrow" style="font-size: 24px"></i>
+
+                  <option value="">Departure Station</option>
+                  <option>New Delhi (NDLS)</option>
+                  <option>Mumbai Central (MMCT)</option>
+                  <option>Howrah Junction (HWH)</option>
+                  <option>Chennai Central (MAS)</option>
+                  <option>Kolkata (KOAA)</option>
+                  <option>Ahmedabad Junction (ADI)</option>
+                  <option>Hyderabad Deccan (HYB)</option>
+                  <option>Bengaluru City (SBC)</option>
+                  <option>Pune Junction (PUNE)</option>
+                  <option>Lucknow Charbagh (LKO)</option>
+                </select>
+              </div>
+
+              <!-- Icon -->
+              <div
+                class="col-md-2 d-flex justify-content-center"
+                style="padding: 35px"
+              >
+                <i
+                  class="fa fa-exchange"
+                  style="font-size: 24px; color: darkblue"
+                ></i>
+              </div>
+
+              <!-- To -->
+              <div class="col-md-5">
+                <label style="color: darkblue; font-size: 20px">To :</label>
+                <select class="form-control" style="cursor: pointer" required>
+                  <option value="">Destination Station</option>
+                  <option>New Delhi (NDLS)</option>
+                  <option>Mumbai Central (MMCT)</option>
+                  <option>Howrah Junction (HWH)</option>
+                  <option>Chennai Central (MAS)</option>
+                  <option>Kolkata (KOAA)</option>
+                  <option>Ahmedabad Junction (ADI)</option>
+                  <option>Hyderabad Deccan (HYB)</option>
+                  <option>Bengaluru City (SBC)</option>
+                  <option>Pune Junction (PUNE)</option>
+                  <option>Lucknow Charbagh (LKO)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-md-5">
+                <label style="color: darkblue; font-size: 20px">Date :</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  style="cursor: pointer"
+                  required
+                />
+              </div>
+              <div class="col-md-2"></div>
+              <div class="form-group col-md-5">
+                <label style="color: darkblue; font-size: 20px">Class :</label>
+                <select class="form-control" style="cursor: pointer">
+                  <option>All Classes</option>
+                  <option>General</option>
+                  <option>Sleeper</option>
+                  <option>AC 3-Tier</option>
+                  <option>AC 2-Tier</option>
+                  <option>First Class AC</option>
+                </select>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 justify-content-center">
+                  <button
+                    class="btn btn-outline-primary pnr"
+                    style="
+                      margin-top: 50px;
+                      font-size: large;
+                      background-color: darkblue;
+                      color: white;
+                    "
+                  >
+                    <i
+                      class="fa fa-check-square"
+                      style="font-size: 24px; float: left"
+                    ></i>
+                    Check PNR Status
+                  </button>
+                </div>
+                <div class="col-md-6 justify-content-center">
+                  <button
+                    class="btn btn-outline-primary pnr"
+                    style="
+                      margin-top: 50px;
+                      margin-left: 15px;
+                      font-size: large;
+                      background-color: darkblue;
+                      color: white;
+                      float: left;
+                    "
+                  >
+                    <i
+                      class="fa fa-close"
+                      style="font-size: 24px; float: left"
+                    ></i>
+                    Ticket Cancellation
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="row" style="margin-top: 30px">
+              <div
+                class="col-md-6"
+                style="
+                  text-indent: 0px;
+                  font-size: 18px;
+                  margin-bottom: 40px;
+                  display: inline-block;
+                "
+              >
+                <input type="checkbox" style="height: 20px; width: 40px" />
+                Person With Disability Concession
+              </div>
+              <div
+                class="col-md-6"
+                style="
+                  text-indent: 0px;
+                  font-size: 18px;
+                  margin-bottom: 40px;
+                  display: inline-block;
+                "
+              >
+                <input type="checkbox" style="height: 20px; width: 40px" />
+                Flexible With Date
+              </div>
+            </div>
+            <button type="submit" class="btn btn-search">Search Trains</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

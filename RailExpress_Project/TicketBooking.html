@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ticket Booking</title>
+    <!-- Bootstrap CSS (v4.5.2) and Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      /* Global Background using Navy and Dark Yellow */
+      body {
+        background: linear-gradient(135deg, navy, #ffcc00);
+        color: #fff;
+        margin: 0;
+        padding: 0;
+      }
+      /* Extra bottom margin so content isn’t hidden by footer */
+      .container {
+        margin-bottom: 150px;
+      }
+      /* Navbar Styling */
+      .navbar {
+        background-color: #ffcc00;
+      }
+      .nav-link {
+        padding: 10px 15px;
+        border-radius: 5px;
+        transition: 0.3s;
+      }
+      .nav-link:hover {
+        color: navy;
+        background-color: #ffaa00;
+        transform: translateY(-5px);
+      }
+      .clock {
+        font-size: 18px;
+        font-weight: bold;
+        color: white;
+        margin-left: 10px;
+      }
+      /* Utility Classes */
+      .hidden {
+        display: none;
+      }
+      .section {
+        padding: 20px;
+      }
+      /* ---------- Login Form Styling (Step 1) ---------- */
+      .login-card {
+        background: linear-gradient(135deg, #1a237e, #0d47a1);
+        color: #fff;
+        border-radius: 15px;
+        padding: 40px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        max-width: 500px;
+        margin: 40px auto;
+      }
+      .login-card .form-control {
+        border: none;
+        border-radius: 8px;
+        padding: 12px 15px;
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        transition: all 0.3s ease;
+      }
+      .login-card .form-control:focus {
+        background: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 0 0 2px #4fc3f7;
+      }
+      .login-card .btn-primary {
+        background: #4fc3f7;
+        border: none;
+        padding: 12px 30px;
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+      }
+      /* ---------- Train Card Styling (Step 2) ---------- */
+      .train-card {
+        background: linear-gradient(135deg, #1a237e, #0d47a1);
+        color: #fff;
+        border-radius: 15px;
+        padding: 25px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: transform 0.3s ease;
+        font-size: 1.25rem; /* Increased font size */
+      }
+      .train-card:hover {
+        transform: translateY(-5px);
+      }
+      .train-card p {
+        margin-bottom: 0.5rem; /* Extra spacing between lines */
+      }
+      /* ---------- Seat Map Styling (Step 3) ---------- */
+      .seat-map-container {
+        background: #fff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        margin: 20px 0;
+      }
+      .seat {
+        width: 60px;
+        height: 60px;
+        margin: 8px;
+        border-radius: 10px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        border: 2px solid #ddd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+      .seat.available {
+        background: linear-gradient(145deg, #ffffff, #e6e6e6);
+        color: #2196f3;
+      }
+      .seat.selected {
+        background: linear-gradient(145deg, #2196f3, #1976d2);
+        color: white;
+        border-color: #1565c0;
+        transform: scale(1.05);
+      }
+      .seat.booked {
+        background: #ffcc00;
+        color: #000;
+        cursor: not-allowed;
+      }
+      /* ---------- Ticket Styling (Step 6) ---------- */
+      .ticket-container {
+        background: linear-gradient(135deg, #1a237e, #0d47a1);
+        color: #fff;
+        border-radius: 15px;
+        padding: 30px;
+        margin: 20px auto;
+        max-width: 600px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        position: relative;
+        border: 2px solid #ffcc00;
+      }
+      .ticket-header {
+        border-bottom: 2px dashed rgba(255, 255, 255, 0.3);
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+      }
+      .ticket-qr {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: #fff;
+        padding: 10px;
+        border-radius: 8px;
+      }
+      .passenger-details {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 15px;
+        margin: 10px 0;
+      }
+      /* ---------- Footer Styling ---------- */
+      .footer {
+        background-color: #000;
+        color: white;
+        padding: 60px 0 30px;
+        margin-top: 0;
+      }
+      .footer h5 {
+        color: #fff;
+        margin-bottom: 20px;
+        font-weight: bold;
+      }
+      .footer-links {
+        list-style: none;
+        padding: 0;
+      }
+      .footer-links li {
+        margin-bottom: 15px;
+      }
+      .footer-links a {
+        color: #fff;
+        text-decoration: none;
+        transition: 0.3s;
+      }
+      .footer-links a:hover {
+        color: #ffcc00;
+        padding-left: 5px;
+      }
+      .social-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+      .social-links a {
+        display: inline-block;
+        width: 35px;
+        height: 35px;
+        background: #fff;
+        color: #000;
+        text-align: center;
+        line-height: 35px;
+        border-radius: 50%;
+        transition: 0.3s;
+      }
+      .social-links a:hover {
+        transform: translateY(-3px);
+      }
+      .footer-bottom {
+        text-align: center;
+        padding-top: 30px;
+        margin-top: 30px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .footer .btn-warning {
+        background-color: #fff;
+        border-color: #fff;
+        color: #000;
+      }
+      .footer .btn-warning:hover {
+        background-color: #ffcc00;
+        border-color: #ffcc00;
+      }
+      .grad {
+        background-image: linear-gradient(
+          to bottom,
+          rgb(119, 26, 132),
+          rgb(192, 23, 113),
+          red,
+          orange,
+          yellow
+        );
+      }
+      .grad2 {
+        background-image: linear-gradient(
+          to bottom,
+          rgb(20, 170, 20),
+          rgb(20, 170, 20)
+        );
+      }
+      .btna {
+        background-color: navy;
+        color: white;
+      }
+      .btna:hover {
+        background-color: #ffcc00;
+        border-color: #ffaa00;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+      <a class="navbar-brand" href="R1.html">
+        <img
+          src="REP_Logo3.jpg"
+          alt="Logo"
+          style="width: 300px; height: 80px"
+        />
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="R1.html"
+              style="color: navy; font-size: 1.3rem; margin-right: 20px"
+              ><i class="fa fa-home" style="font-size: 18px"></i> Home</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="#aboutus"
+              style="color: navy; font-size: 1.3rem; margin-right: 20px"
+              ><i class="fa fa-info-circle" style="font-size: 18px"></i> About
+              Us</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="#contactus"
+              style="color: navy; font-size: 1.3rem; margin-right: 20px"
+              ><i class="fa fa-address-book" style="font-size: 18px"></i>
+              Contact Us</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="FAQs.html"
+              style="color: navy; font-size: 1.3rem; margin-right: 20px"
+              ><i class="fa fa-question-circle" style="font-size: 18px"></i>
+              FAQs</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="#"
+              style="color: navy; font-size: 1.3rem; margin-right: 20px"
+              ><i class="fa fa-clock" style="font-size: 18px"></i> Time :<span
+                class="clock"
+                id="clock"
+              ></span
+            ></a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="#"
+              style="color: navy; font-size: 1.3rem; margin-right: 5px"
+              ><i class="fa fa-user-circle" style="font-size: 18px"></i> Log
+              in</a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main Container for Steps -->
+    <div class="container mt-5">
+      <!-- Step 1: Login Section (initially hidden) -->
+      <div id="loginSection" class="section hidden">
+        <div class="card login-card mx-auto" style="max-width: 500px">
+          <div class="card-body">
+            <h2 class="card-title text-center mb-4">IRCTC Login</h2>
+            <form id="loginForm" novalidate>
+              <div class="form-group">
+                <label for="irctcUsername">IRCTC Username:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="irctcUsername"
+                  placeholder="Enter IRCTC Username"
+                  required
+                />
+                <div class="invalid-feedback">
+                  Please enter a valid username (only letters, numbers,
+                  underscores; min 3 characters).
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="irctcEmail">Email:</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="irctcEmail"
+                  placeholder="Enter Email"
+                  required
+                />
+                <div class="invalid-feedback">
+                  Please enter a valid email address.
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="irctcPassword">Password:</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="irctcPassword"
+                  placeholder="Enter Password"
+                  required
+                />
+                <div class="invalid-feedback">
+                  Password must be at least 6 characters with at least one
+                  number.
+                </div>
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-medium mt-3">
+                  Login
+                </button>
+              </div>
+            </form>
+            <p class="text-center mt-3">
+              <a href="#" style="color: white">or Sign Up for new User?</a>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Train Selection Section (initially visible) -->
+      <div
+        id="trainSelectionSection"
+        class="section"
+        style="padding-top: 100px"
+      >
+        <h2 class="text-center mb-4">Select Your Train</h2>
+        <div id="trainList" class="row">
+          <!-- Multiple train cards will be populated here -->
+        </div>
+      </div>
+
+      <!-- Step 3: Seat Selection Section -->
+      <div id="seatSelectionSection" class="section hidden">
+        <button class="btn btn-secondary mb-3" onclick="backToTrainSelection()">
+          ← Back to Trains
+        </button>
+        <h2 class="text-center mb-4" id="selectedTrainName"></h2>
+        <div id="seatMap" class="text-center">
+          <!-- Seat layout will be generated here -->
+        </div>
+        <div class="text-center mt-3">
+          <button
+            class="btn btn-success btn-lg"
+            onclick="proceedToPassengerDetails()"
+          >
+            Book Seat
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 4: Passenger Details Section -->
+      <div
+        id="passengerDetailsSection"
+        class="section hidden"
+        style="padding: 100px"
+      >
+        <h2 class="text-center mb-4">Passenger Details</h2>
+        <form id="passengerForm">
+          <div class="form-group">
+            <label for="numPassengers">Number of Passengers:</label>
+            <input
+              type="number"
+              class="form-control"
+              id="numPassengers"
+              min="1"
+              value="1"
+              required
+            />
+          </div>
+          <div id="passengerDetailsContainer">
+            <!-- Passenger detail fields will be generated here -->
+          </div>
+          <div class="text-center">
+            <button
+              type="button"
+              class="btn btn-secondary btn-lg mt-3"
+              onclick="generatePassengerFields()"
+            >
+              Generate Passenger Fields
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Step 5: Payment Section -->
+      <div
+        id="paymentSection"
+        class="section hidden"
+        style="padding-top: 100px"
+      >
+        <h2 class="text-center mb-4">Payment Options</h2>
+        <form id="paymentForm">
+          <div class="form-group text-center">
+            <label>Select Payment Method:</label><br />
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="paymentMethod"
+                id="upiOption"
+                value="upi"
+                checked
+              />
+              <label class="form-check-label" for="upiOption">UPI</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="paymentMethod"
+                id="cardOption"
+                value="card"
+              />
+              <label class="form-check-label" for="cardOption"
+                >Card Payment</label
+              >
+            </div>
+          </div>
+          <div id="upiPaymentSection">
+            <div class="form-group">
+              <label for="upiId">UPI ID:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="upiId"
+                placeholder="e.g., user@bank"
+                required
+              />
+              <div class="invalid-feedback">Enter a valid UPI ID.</div>
+            </div>
+            <div class="form-group">
+              <label for="upiPin">UPI PIN:</label>
+              <input
+                type="password"
+                class="form-control"
+                id="upiPin"
+                placeholder="Enter 4-digit PIN"
+                required
+              />
+              <div class="invalid-feedback">Enter a valid 4-digit PIN.</div>
+            </div>
+          </div>
+          <div id="cardPaymentSection" class="hidden">
+            <div class="form-group">
+              <label for="cardNumber">Card Number:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="cardNumber"
+                placeholder="Enter 16-digit Card Number"
+                required
+              />
+              <div class="invalid-feedback">
+                Enter a valid 16-digit card number.
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="cardPin">Card PIN:</label>
+              <input
+                type="password"
+                class="form-control"
+                id="cardPin"
+                placeholder="Enter 4-digit PIN"
+                required
+              />
+              <div class="invalid-feedback">Enter a valid 4-digit PIN.</div>
+            </div>
+          </div>
+          <div class="mt-3 text-center">
+            <p id="totalFareText" class="font-weight-bold"></p>
+            <button type="submit" class="btn btn-success btn-lg">
+              Confirm Booking
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Step 6: Ticket Display Section -->
+      <div id="ticketSection" class="section hidden" style="padding-top: 100px">
+        <!-- Ticket will be generated and displayed here along with an Ok button -->
+      </div>
+    </div>
+    <!-- End of Main Container -->
+
+    <!-- Footer -->
+    <footer class="footer" id="contactus">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 col-sm-6">
+            <h5>Quick Links</h5>
+            <ul class="footer-links">
+              <li>
+                <a href="#"><i class="fas fa-chevron-right mr-2"></i>Home</a>
+              </li>
+              <li>
+                <a href="#"
+                  ><i class="fas fa-chevron-right mr-2"></i>Book Tickets</a
+                >
+              </li>
+              <li>
+                <a href="#"
+                  ><i class="fas fa-chevron-right mr-2"></i>PNR Status</a
+                >
+              </li>
+              <li>
+                <a href="#"
+                  ><i class="fas fa-chevron-right mr-2"></i>Cancellations</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <h5>Travel Info</h5>
+            <ul class="footer-links">
+              <li>
+                <a href="#"
+                  ><i class="fas fa-chevron-right mr-2"></i>Train Schedule</a
+                >
+              </li>
+              <li>
+                <a href="#"
+                  ><i class="fas fa-chevron-right mr-2"></i>Travel Insurance</a
+                >
+              </li>
+              <li>
+                <a href="#"
+                  ><i class="fas fa-chevron-right mr-2"></i>Holiday Packages</a
+                >
+              </li>
+              <li>
+                <a href="#"
+                  ><i class="fas fa-chevron-right mr-2"></i>Travel Guidelines</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <h5>Contact Info</h5>
+            <ul class="footer-links">
+              <li><i class="fas fa-phone mr-2"></i>+91 1800-111-139</li>
+              <li>
+                <i class="fas fa-envelope mr-2"></i>care@indianrail.gov.in
+              </li>
+              <li>
+                <i class="fas fa-map-marker-alt mr-2"></i>New Delhi, India
+              </li>
+              <li><i class="fas fa-clock mr-2"></i>24/7 Support</li>
+            </ul>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <h5>Connect With Us</h5>
+            <div class="social-links">
+              <a href="#"
+                ><i
+                  class="fab fa-facebook-f"
+                  style="
+                    color: white;
+                    font-size: 25px;
+                    background-color: blue;
+                    padding: 5px 7px;
+                    border-radius: 200px;
+                  "
+                ></i
+              ></a>
+              <a href="#"
+                ><i
+                  class="fab fa-twitter"
+                  style="
+                    color: white;
+                    font-size: 24px;
+                    background-color: blue;
+                    padding: 5px;
+                    border-radius: 200px;
+                  "
+                ></i
+              ></a>
+              <a href="#"
+                ><i
+                  class="fab fa-instagram grad"
+                  style="
+                    color: white;
+                    font-size: 24px;
+                    padding: 5px;
+                    border-radius: 200px;
+                  "
+                ></i
+              ></a>
+              <a href="#"
+                ><i
+                  class="fab fa-linkedin-in"
+                  style="
+                    color: white;
+                    font-size: 25px;
+                    background-color: blue;
+                    padding: 5px;
+                    border-radius: 200px;
+                  "
+                ></i
+              ></a>
+              <a href="#"
+                ><i
+                  class="fab fa-youtube"
+                  style="color: red; font-size: 24px; margin-top: 6px"
+                ></i
+              ></a>
+              <a href="#"
+                ><i
+                  class="fab fa-telegram"
+                  style="color: skyblue; font-size: 38px"
+                ></i
+              ></a>
+              <a href="#"
+                ><i
+                  class="fab fa-whatsapp grad2"
+                  style="
+                    color: white;
+                    font-size: 24px;
+                    padding: 5px;
+                    border-radius: 200px;
+                  "
+                ></i
+              ></a>
+            </div>
+            <div class="mt-4">
+              <h5>Download Our App</h5>
+              <a href="#" class="btn btn-warning btn-sm mt-2"
+                ><i class="fab fa-google-play mr-2"></i>Google Play</a
+              >
+              <a href="#" class="btn btn-warning btn-sm mt-2"
+                ><i class="fab fa-apple mr-2"></i>App Store</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 Indian Railways. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JavaScript for Multi-Step Process -->
+    <script>
+      // --- Retrieve search parameters from URL query string ---
+      // --- URLSearchParams is a built-in JS interface ---
+      function getQueryParams() {
+        // Remove the '?' from the beginning of the query string.
+        var queryString = window.location.search.substring(1);
+        var params = {};
+        // Split the query string at each '&' to separate different parameters.
+        var queries = queryString.split("&");
+        // Loop through each parameter and split it into key and value.
+        for (var i = 0; i < queries.length; i++) {
+          var pair = queries[i].split("=");
+          // Decode the value and store it in the params object.
+          params[pair[0]] = decodeURIComponent(pair[1] || "");
+        }
+        return params;
+      }
+
+      // Usage:
+      var params = getQueryParams();
+      var searchFrom = params.from;
+      var searchTo = params.to;
+      var selectedDate = params.date;
+      var selectedCoach = params.class;
+
+      if (!searchFrom || !searchTo || !selectedDate || !selectedCoach) {
+        alert(
+          "Search criteria missing. Please go back and enter your journey details."
+        );
+        window.location.href = "R1.html";
+      }
+
+      // Convert query parameters to lowercase for comparison
+      var searchFromLower = searchFrom.toLowerCase();
+      var searchToLower = searchTo.toLowerCase();
+      var selectedCoachLower = selectedCoach.toLowerCase();
+
+      // Global Variables for Ticket Booking Process
+      var selectedTrain = null;
+      var selectedSeats = [];
+      var farePerSeat = 0;
+
+      // --- Train Data ---
+      var demoTrain = {
+        id: 100,
+        name: "Your Chosen Express",
+        departure: "10:00",
+        arrival: "18:00",
+        from: searchFrom,
+        to: searchTo,
+        date: selectedDate,
+        classes: [selectedCoach],
+        fare: 800,
+      };
+
+      // Additional dummy trains with varying departure/arrival times and fares
+      var fixedTrains = [
+        {
+          id: 1,
+          name: "Somnath Express",
+          departure: "21:45",
+          arrival: "03:54",
+          from: searchFrom,
+          to: searchTo,
+          date: selectedDate,
+          classes: [selectedCoach],
+          fare: 945,
+        },
+        {
+          id: 2,
+          name: "Saurashtra Janta",
+          departure: "22:15",
+          arrival: "04:41",
+          from: searchFrom,
+          to: searchTo,
+          date: selectedDate,
+          classes: [selectedCoach],
+          fare: 875,
+        },
+        {
+          id: 3,
+          name: "JBP Somnath Exp",
+          departure: "08:10",
+          arrival: "14:40",
+          from: searchFrom,
+          to: searchTo,
+          date: selectedDate,
+          classes: [selectedCoach],
+          fare: 925,
+        },
+      ];
+
+      // Combine the demo train with fixed trains
+      var trains = [demoTrain].concat(fixedTrains);
+
+      // ------------------ Step 2: Train Selection ------------------
+      function showTrainSelection() {
+        var trainListContainer = document.getElementById("trainList");
+        trainListContainer.innerHTML = "";
+
+        // Filter trains using case-insensitive comparison
+        var filteredTrains = trains.filter(function (train) {
+          return (
+            train.from.toLowerCase() === searchFromLower &&
+            train.to.toLowerCase() === searchToLower &&
+            train.date === selectedDate &&
+            train.classes
+              .map(function (c) {
+                return c.toLowerCase();
+              })
+              .indexOf(selectedCoachLower) !== -1
+          );
+        });
+
+        if (filteredTrains.length === 0) {
+          trainListContainer.innerHTML =
+            "<p class='text-center'>No trains available for the selected route, date, and class.</p>";
+        }
+
+        // Display each train card in a single column layout with increased spacing and font size
+        for (var i = 0; i < filteredTrains.length; i++) {
+          var train = filteredTrains[i];
+          var card = document.createElement("div");
+          card.className = "col-12 mb-3";
+
+          var depTime = convertToAmPm(train.departure);
+          var arrTime = convertToAmPm(train.arrival);
+
+          // New layout for each train card with extra spacing
+          card.innerHTML = `
+            <div class="card train-card">
+              <div class="card-body">
+                <h3 class="card-title">${train.name}</h3>
+                <p class="mb-1"><strong>Route:</strong> ${searchFrom} → ${searchTo}</p>
+                <p class="mb-1"><strong>Time:</strong> ${depTime} - ${arrTime}</p>
+                <p class="mb-1">
+                  <strong>Date:</strong> ${selectedDate} &nbsp; | &nbsp;
+                  <strong>Class:</strong> ${selectedCoach} &nbsp; | &nbsp;
+                  <strong>Fare:</strong> ₹${train.fare}
+                </p>
+                <button class="btn btn-primary btn-lg" onclick="selectTrain(${train.id})">Book Now</button>
+              </div>
+            </div>
+          `;
+          trainListContainer.appendChild(card);
+        }
+      }
+
+      function convertToAmPm(timeStr) {
+        var parts = timeStr.split(":");
+        var hour = parseInt(parts[0], 10);
+        var minute = parts[1];
+        var ampm = hour >= 12 ? "PM" : "AM";
+        hour = hour % 12;
+        if (hour === 0) hour = 12;
+        return hour + ":" + minute + " " + ampm;
+      }
+
+      // When a train is selected, show the login page (Step 1) instead of directly proceeding
+      function selectTrain(trainId) {
+        for (var i = 0; i < trains.length; i++) {
+          if (trains[i].id === trainId) {
+            selectedTrain = trains[i];
+            break;
+          }
+        }
+        farePerSeat = selectedTrain.fare;
+        document
+          .getElementById("trainSelectionSection")
+          .classList.add("hidden");
+        document.getElementById("loginSection").classList.remove("hidden");
+      }
+
+      // ------------------ Step 1: Login Handling ------------------
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          var username = document.getElementById("irctcUsername").value.trim();
+          var email = document.getElementById("irctcEmail").value.trim();
+          var password = document.getElementById("irctcPassword").value.trim();
+
+          var usernameRegex = /^[a-zA-Z0-9_]{3,}$/;
+          var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+          var passwordRegex = /^(?=.*\d).{6,}$/;
+
+          var errors = [];
+          if (!usernameRegex.test(username)) {
+            errors.push("Username");
+            document
+              .getElementById("irctcUsername")
+              .classList.add("is-invalid");
+          } else {
+            document
+              .getElementById("irctcUsername")
+              .classList.remove("is-invalid");
+          }
+          if (!emailRegex.test(email)) {
+            errors.push("Email");
+            document.getElementById("irctcEmail").classList.add("is-invalid");
+          } else {
+            document
+              .getElementById("irctcEmail")
+              .classList.remove("is-invalid");
+          }
+          if (!passwordRegex.test(password)) {
+            errors.push("Password");
+            document
+              .getElementById("irctcPassword")
+              .classList.add("is-invalid");
+          } else {
+            document
+              .getElementById("irctcPassword")
+              .classList.remove("is-invalid");
+          }
+
+          if (errors.length > 0) {
+            alert("Please fill valid details for: " + errors.join(", "));
+            return;
+          }
+
+          document.getElementById("loginSection").classList.add("hidden");
+          showSeatMap();
+        });
+
+      // ------------------ Step 3: Seat Selection ------------------
+      function showSeatMap() {
+        var seatMapDiv = document.getElementById("seatMap");
+        seatMapDiv.innerHTML = "";
+        selectedSeats = [];
+
+        seatMapDiv.style.display = "grid";
+        seatMapDiv.style.gridTemplateColumns = "repeat(3, 1fr)";
+        seatMapDiv.style.gap = "10px";
+
+        for (var i = 1; i <= 30; i++) {
+          var padded = i < 10 ? "0" + i : i.toString();
+          var col = (i - 1) % 3;
+          var berth = col === 0 ? "LB" : col === 1 ? "MB" : "UB";
+          var seatBtn = document.createElement("button");
+          seatBtn.className = "seat available btn btn-light";
+          // Mark some seats as already booked (e.g., seat 5, 12, 20)
+          if (i === 5 || i === 12 || i === 20) {
+            seatBtn.classList.remove("available");
+            seatBtn.classList.add("booked");
+            seatBtn.disabled = true;
+          }
+          seatBtn.textContent = padded + berth;
+          seatBtn.onclick = function () {
+            toggleSeat(this);
+          };
+          seatMapDiv.appendChild(seatBtn);
+        }
+
+        document
+          .getElementById("seatSelectionSection")
+          .classList.remove("hidden");
+        document.getElementById("selectedTrainName").textContent =
+          selectedTrain.name + " (" + searchFrom + " → " + searchTo + ")";
+      }
+
+      function toggleSeat(seatBtn) {
+        if (seatBtn.classList.contains("booked")) {
+          return;
+        }
+        if (seatBtn.classList.contains("selected")) {
+          seatBtn.classList.remove("selected");
+          var index = selectedSeats.indexOf(seatBtn.textContent);
+          if (index > -1) {
+            selectedSeats.splice(index, 1);
+          }
+        } else {
+          seatBtn.classList.add("selected");
+          selectedSeats.push(seatBtn.textContent);
+        }
+      }
+
+      function backToTrainSelection() {
+        document.getElementById("seatSelectionSection").classList.add("hidden");
+        document
+          .getElementById("trainSelectionSection")
+          .classList.remove("hidden");
+        selectedSeats = [];
+        selectedTrain = null;
+      }
+
+      function proceedToPassengerDetails() {
+        if (selectedSeats.length === 0) {
+          alert("Please select at least one seat.");
+          return;
+        }
+        document.getElementById("seatSelectionSection").classList.add("hidden");
+        document
+          .getElementById("passengerDetailsSection")
+          .classList.remove("hidden");
+      }
+
+      // ------------------ Step 4: Passenger Details ------------------
+      function generatePassengerFields() {
+        const num = parseInt(document.getElementById("numPassengers").value);
+        const container = document.getElementById("passengerDetailsContainer");
+        container.innerHTML = `
+          <div class="passenger-form mb-4">
+            <div class="form-group">
+              <label>Contact Mobile Number</label>
+              <input type="tel" class="form-control contact-number" pattern="[0-9]{10}" placeholder="Enter 10-digit mobile number" required>
+            </div>
+          </div>
+        `;
+        for (let i = 1; i <= num; i++) {
+          container.innerHTML += `
+            <div class="passenger-form mb-4">
+              <h5 class="border-bottom pb-2">Passenger ${i}</h5>
+              <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" class="form-control passenger-name" placeholder="Enter full name as per ID" required>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Age</label>
+                    <input type="number" class="form-control passenger-age" min="1" max="120" placeholder="Age" required>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Gender</label>
+                    <select class="form-control passenger-gender" required>
+                      <option value="">Select Gender</option>
+                      <option>Male</option>
+                      <option>Female</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Nationality</label>
+                    <select class="form-control passenger-nationality" onchange="updateCountryCode(this)" required>
+                      <option value="">Select Nationality</option>
+                      <option value="India" data-code="+91">India</option>
+                      <option value="USA" data-code="+1">USA</option>
+                      <option value="Russia" data-code="+7">Russia</option>
+                      <option value="China" data-code="+86">China</option>
+                      <option value="UK" data-code="+44">UK</option>
+                      <option value="Germany" data-code="+49">Germany</option>
+                      <option value="France" data-code="+33">France</option>
+                      <option value="Italy" data-code="+39">Italy</option>
+                      <option value="Australia" data-code="+61">Australia</option>
+                      <option value="Canada" data-code="+1">Canada</option>
+                    </select>
+                    <span class="country-code"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+        var totalFare = farePerSeat * num;
+        container.innerHTML += `
+          <div class="text-center mt-4">
+            <h4 class="mb-3">Total Fare: ₹${totalFare}</h4>
+            <button type="button" class="btn btn-primary btn-lg" onclick="proceedToPayment()">Proceed to Payment</button>
+          </div>
+        `;
+      }
+
+      // Validate passenger details before proceeding
+      function proceedToPayment() {
+        var contactNumberElem = document.querySelector(".contact-number");
+        if (!/^\d{10}$/.test(contactNumberElem.value.trim())) {
+          alert("Please enter a valid 10-digit mobile number");
+          return;
+        }
+        var passengerForms = document.querySelectorAll(
+          "#passengerDetailsContainer .passenger-form"
+        );
+        // Skip the first form (contact number)
+        for (var i = 1; i < passengerForms.length; i++) {
+          var form = passengerForms[i];
+          var name = form.querySelector(".passenger-name").value.trim();
+          var age = form.querySelector(".passenger-age").value.trim();
+          var gender = form.querySelector(".passenger-gender").value.trim();
+          var nationality = form.querySelector(".passenger-nationality").value;
+          if (!name || !age || !gender || !nationality) {
+            alert("Please fill all passenger details");
+            return;
+          }
+        }
+        document
+          .getElementById("passengerDetailsSection")
+          .classList.add("hidden");
+        document.getElementById("paymentSection").classList.remove("hidden");
+      }
+
+      // ------------------ Step 5: Payment Section ------------------
+      document
+        .getElementById("upiOption")
+        .addEventListener("change", function () {
+          document
+            .getElementById("upiPaymentSection")
+            .classList.remove("hidden");
+          document.getElementById("cardPaymentSection").classList.add("hidden");
+        });
+      document
+        .getElementById("cardOption")
+        .addEventListener("change", function () {
+          document
+            .getElementById("cardPaymentSection")
+            .classList.remove("hidden");
+          document.getElementById("upiPaymentSection").classList.add("hidden");
+        });
+
+      document
+        .getElementById("paymentForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          var paymentMethod = document.querySelector(
+            'input[name="paymentMethod"]:checked'
+          ).value;
+
+          // UPI Payment Validation with separate alerts
+          if (paymentMethod === "upi") {
+            var upiId = document.getElementById("upiId").value.trim();
+            var upiPin = document.getElementById("upiPin").value.trim();
+            var upiIdRegex = /^[\w.-]+@[\w.-]+$/;
+            var upiPinRegex = /^\d{4}$/;
+            if (upiId === "") {
+              alert(
+                "UPI ID cannot be empty. Please enter your UPI ID (e.g., user@bank)."
+              );
+              return;
+            } else if (!upiIdRegex.test(upiId)) {
+              alert("Invalid UPI ID format. Please use the format user@bank.");
+              return;
+            }
+            if (upiPin === "") {
+              alert(
+                "UPI PIN cannot be empty. Please enter your 4-digit UPI PIN."
+              );
+              return;
+            } else if (!upiPinRegex.test(upiPin)) {
+              alert("Invalid UPI PIN. Please enter a 4-digit PIN.");
+              return;
+            }
+          }
+          // Card payment validations remain as-is
+          else if (paymentMethod === "card") {
+            var cardNumber = document.getElementById("cardNumber").value.trim();
+            var cardPin = document.getElementById("cardPin").value.trim();
+            var cardNumberRegex = /^\d{16}$/;
+            var cardPinRegex = /^\d{4}$/;
+            if (cardNumber === "" || !cardNumberRegex.test(cardNumber)) {
+              document.getElementById("cardNumber").classList.add("is-invalid");
+              alert("Please enter a valid 16-digit card number.");
+              return;
+            } else {
+              document
+                .getElementById("cardNumber")
+                .classList.remove("is-invalid");
+            }
+            if (cardPin === "" || !cardPinRegex.test(cardPin)) {
+              document.getElementById("cardPin").classList.add("is-invalid");
+              alert("Please enter a valid 4-digit card PIN.");
+              return;
+            } else {
+              document.getElementById("cardPin").classList.remove("is-invalid");
+            }
+          }
+
+          // Gather passenger details (skip the first field which is for contact mobile number)
+          var passengerForms = document.querySelectorAll(
+            "#passengerDetailsContainer .passenger-form"
+          );
+          var passengers = [];
+          for (var i = 1; i < passengerForms.length; i++) {
+            var form = passengerForms[i];
+            var name = form.querySelector(".passenger-name").value;
+            var age = form.querySelector(".passenger-age").value;
+            var gender = form.querySelector(".passenger-gender").value;
+            var seat = selectedSeats[i - 1] || "N/A";
+            passengers.push({
+              name: name,
+              age: age,
+              gender: gender,
+              seat: seat,
+            });
+          }
+
+          var bookingDetails = {
+            trainName: selectedTrain.name,
+            pnr: generatePNR(),
+            date: selectedDate,
+            from: searchFrom,
+            to: searchTo,
+            passengers: passengers,
+          };
+
+          document.getElementById("paymentSection").classList.add("hidden");
+          document.getElementById("ticketSection").classList.remove("hidden");
+          // Append the Ok button to redirect home after ticket confirmation
+          document.getElementById("ticketSection").innerHTML =
+            generateTicket(bookingDetails) +
+            '<div class="text-center mt-3"><button class="btna mt-5" style="font-size: 1.5rem" onclick="redirectHome()">OK</button></div>';
+        });
+
+      // ------------------ Helper Functions ------------------
+      function generateTicket(bookingDetails) {
+        return `
+          <div class="ticket-container">
+            <div class="ticket-header">
+              <h3>E-Ticket</h3>
+              <div class="ticket-qr">
+                <img src="qr.png" alt="QR Code" width="100">
+              </div>
+            </div>
+            <div class="train-info">
+              <h4>${bookingDetails.trainName}</h4>
+              <p>PNR: ${bookingDetails.pnr}</p>
+              <p>Date: ${bookingDetails.date}</p>
+              <p>From: ${bookingDetails.from} → To: ${bookingDetails.to}</p>
+            </div>
+            <div class="passenger-details">
+              ${bookingDetails.passengers
+                .map(function (p) {
+                  return `
+                  <div class="passenger mb-2">
+                    <strong>${p.name}</strong> (${p.age}, ${p.gender})<br>
+                    Seat: ${p.seat}
+                  </div>
+                `;
+                })
+                .join("")}
+            </div>
+            <div class="ticket-footer mt-3">
+              <small>Happy Journey! Keep this ticket handy for verification.</small>
+            </div>
+          </div>
+        `;
+      }
+
+      function generatePNR() {
+        return Math.floor(1000000000 + Math.random() * 9000000000);
+      }
+
+      function updateClock() {
+        var now = new Date();
+        document.getElementById("clock").innerText = now.toLocaleTimeString();
+      }
+      setInterval(updateClock, 1000);
+      updateClock();
+
+      // Function to update the country code display when a nationality is selected
+      function updateCountryCode(selectElem) {
+        var code =
+          selectElem.options[selectElem.selectedIndex].getAttribute(
+            "data-code"
+          ) || "";
+        var span = selectElem.nextElementSibling;
+        if (span && span.classList.contains("country-code")) {
+          span.textContent = code;
+        }
+      }
+
+      // Redirect to home page (R1.html) when Ok is clicked on the ticket page
+      function redirectHome() {
+        window.location.href = "R1.html";
+      }
+
+      // Initialize the train selection on page load
+      document.addEventListener("DOMContentLoaded", function () {
+        showTrainSelection();
+      });
+    </script>
+
+    <!-- Bootstrap and jQuery Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

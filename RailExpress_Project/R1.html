@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Train Ticket Booking</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      /* Previous styles remain unchanged */
+      .navbar {
+        background-color: #ffcc00;
+      }
+      .nav-link {
+        padding: 10px 15px;
+        border-radius: 5px;
+        transition: 0.3s;
+      }
+      .nav-link:hover {
+        color: navy;
+        background-color: #ffaa00;
+        transform: translateY(-5px);
+      }
+      .clock {
+        font-size: 18px;
+        font-weight: bold;
+        color: white;
+        margin-left: 10px;
+      }
+      .search-section {
+        background: url("Train2.jpg") no-repeat center center/cover;
+        margin-top: 105px;
+        padding: 50px 0;
+        height: 700px;
+        text-align: center;
+      }
+      .search-box {
+        background: #0a3d62;
+        padding: 30px;
+        border-radius: 15px;
+        color: white;
+      }
+      .capsule-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+      .capsule {
+        background: yellow;
+        padding: 10px 20px;
+        margin-top: 20px;
+        border-radius: 50px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+        text-align: center;
+        min-width: 150px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+      }
+      .capsule:hover {
+        background: orange;
+        transform: translateY(-4px);
+      }
+      .form-control {
+        border-radius: 20px;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      .btn-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 20px;
+      }
+      .btn-medium {
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 20px;
+      }
+      .checkbox-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-top: 15px;
+      }
+      .checkbox-container label {
+        font-size: 16px;
+      }
+      input[type="checkbox"] {
+        transform: scale(1.2);
+        margin-right: 5px;
+      }
+
+      /* New styles for enhanced About Us section */
+      .about-section {
+        background: #0a3d62;
+        min-height: 100vh;
+        padding: 80px 0;
+        color: white;
+      }
+      .about-section h2 {
+        color: #fff;
+        margin-bottom: 50px;
+        text-align: center;
+        font-size: 2.5em;
+      }
+      .about-card {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 25px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+        transition: transform 0.3s;
+      }
+      .about-card:hover {
+        transform: translateY(-5px);
+      }
+      .about-card i {
+        color: #ffcc00;
+        font-size: 2.5em;
+        margin-bottom: 20px;
+      }
+      .about-card h4 {
+        color: #ffcc00;
+        margin-bottom: 15px;
+      }
+      .accordion-section {
+        margin-top: 50px;
+      }
+      .custom-accordion .card {
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        margin-bottom: 10px;
+      }
+      .custom-accordion .card-header {
+        background: rgba(255, 204, 0, 0.1);
+        border: none;
+        padding: 15px;
+      }
+      .custom-accordion .btn-link {
+        color: #ffcc00;
+        text-decoration: none;
+        width: 100%;
+        text-align: left;
+        font-weight: 600;
+      }
+      .custom-accordion .btn-link:hover {
+        color: #ffaa00;
+      }
+      .custom-accordion .card-body {
+        color: white;
+        padding: 20px;
+      }
+
+      .steps-section {
+        background: #f8f9fa;
+        padding: 80px 0;
+        text-align: center;
+      }
+      .step-box {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+      }
+      .step-box:hover {
+        transform: translateY(-5px);
+      }
+      .footer {
+        background-color: #000000;
+        color: white;
+        padding: 60px 0 30px;
+        margin-top: 0;
+      }
+
+      .footer h5 {
+        color: #ffffff;
+        margin-bottom: 20px;
+        font-weight: bold;
+      }
+
+      .footer-links {
+        list-style: none;
+        padding: 0;
+      }
+
+      .footer-links li {
+        margin-bottom: 15px;
+      }
+
+      .footer-links a {
+        color: #ffffff;
+        text-decoration: none;
+        transition: 0.3s;
+      }
+
+      .footer-links a:hover {
+        color: #ffcc00;
+        padding-left: 5px;
+      }
+
+      .social-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+
+      .social-links a {
+        display: inline-block;
+        width: 35px;
+        height: 35px;
+        background: #ffffff;
+        color: #000000;
+        text-align: center;
+        line-height: 35px;
+        border-radius: 50%;
+        transition: 0.3s;
+      }
+
+      .social-links a:hover {
+        transform: translateY(-3px);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 30px;
+        margin-top: 30px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .footer .btn-warning {
+        background-color: #ffffff;
+        border-color: #ffffff;
+        color: #000000;
+      }
+
+      .footer .btn-warning:hover {
+        background-color: #ffcc00;
+        border-color: #ffcc00;
+      }
+      .grad {
+        background-image: linear-gradient(
+          to bottom,
+          rgb(119, 26, 132),
+          rgb(192, 23, 113),
+          red,
+          orange,
+          yellow
+        );
+      }
+      .grad2 {
+        background-image: linear-gradient(
+          to bottom,
+          rgb(20, 170, 20),
+          rgb(20, 170, 20)
+        );
+      }
+      @media (max-width: 768px) {
+        body {
+          background: linear-gradient(135deg, navy, #ffcc00);
+        }
+        .navbar .nav-link {
+          font-size: 1rem;
+          padding: 8px 10px;
+        }
+        .search-section {
+          margin-top: 57px;
+          padding: 55px 0;
+          height: auto;
+        }
+        .search-box {
+          padding: 20px;
+        }
+        .capsule-container {
+          flex-direction: column;
+          align-items: center;
+        }
+        .capsule {
+          margin-top: 10px;
+        }
+        .form-control {
+          font-size: 0.9rem;
+        }
+        .btn-medium {
+          font-size: 0.9rem;
+          padding: 8px 16px;
+        }
+        .about-section h2 {
+          font-size: 2rem;
+        }
+        .step-box {
+          margin-bottom: 20px;
+        }
+        .fa-exchange-alt {
+          margin-top: 30px;
+          margin-bottom: 60px;
+        }
+      }
+    </style>
+  </head>
+  <!-- Inline onload attribute replaces DOMContentLoaded listener -->
+  <body data-bs-spy="scroll" onload="init();">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+      <a class="navbar-brand" href="R1.html">
+        <img
+          src="REP_Logo3.jpg"
+          alt="Logo"
+          style="width: 300px; height: 80px"
+        />
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="R1.html"
+              style="color: navy; font-size: 1.3rem; margin-right: 20px"
+              ><i class="fa fa-home" style="font-size: 18px"></i> Home</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="#aboutus"
+              style="color: navy; font-size: 1.3rem; margin-right: 20px"
+              ><i class="fa fa-info-circle" style="font-size: 18px"></i> About
+              Us</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="#contactus"
+              style="color: navy; font-size: 1.3rem; margin-right: 20px"
+              ><i class="fa fa-address-book" style="font-size: 18px"></i>
+              Contact Us</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="FAQs.html"
+              style="color: navy; font-size: 1.3rem; margin-right: 20px"
+              ><i class="fa fa-question-circle" style="font-size: 18px"></i>
+              FAQs</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="#"
+              style="color: navy; font-size: 1.3rem; margin-right: 20px"
+              ><i class="fa fa-clock" style="font-size: 18px"></i> Time :<span
+                class="clock"
+                id="clock"
+              ></span
+            ></a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="#"
+              style="color: navy; font-size: 1.3rem; margin-right: 5px"
+              ><i class="fa fa-user-circle" style="font-size: 18px"></i> Log
+              in</a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="search-section">
+      <div class="container">
+        <div class="search-box">
+          <h2>Book Your Train Tickets</h2>
+          <div class="capsule-container">
+            <a href="R1.html" class="capsule" style="color: black"
+              >Book Ticket</a
+            >
+            <a href="PNR.html" class="capsule" style="color: black"
+              >PNR Status</a
+            >
+            <a
+              href="TicketCancellation.html"
+              class="capsule"
+              style="color: black"
+              >Ticket Cancellation</a
+            >
+          </div>
+          <form>
+            <div class="form-row">
+              <div class="col-md-5">
+                <label><i class="fas fa-train"></i> From:</label>
+                <select
+                  id="fromSelect"
+                  class="form-control"
+                  required
+                  onchange="validateSearchForm()"
+                >
+                  <option value="" disabled selected>Select Source:</option>
+                  <option>New Delhi</option>
+                  <option>Mumbai Central</option>
+                  <option>Kolkata</option>
+                  <option>Chennai</option>
+                  <option>Bangalore</option>
+                  <option>Hyderabad</option>
+                  <option>Pune</option>
+                  <option>Ahmedabad</option>
+                  <option>Jaipur</option>
+                  <option>Lucknow</option>
+                </select>
+              </div>
+              <div
+                class="col-md-2 text-center d-flex align-items-center justify-content-center"
+                style="margin-top: 35px"
+              >
+                <i
+                  class="fas fa-exchange-alt fa-2x"
+                  onclick="swapLocations()"
+                  style="cursor: pointer"
+                ></i>
+              </div>
+              <div class="col-md-5">
+                <label><i class="fas fa-train"></i> To:</label>
+                <select
+                  id="toSelect"
+                  class="form-control"
+                  required
+                  onchange="validateSearchForm()"
+                >
+                  <option value="" disabled selected>
+                    Select Destination:
+                  </option>
+                  <option>New Delhi</option>
+                  <option>Mumbai Central</option>
+                  <option>Kolkata</option>
+                  <option>Chennai</option>
+                  <option>Bangalore</option>
+                  <option>Hyderabad</option>
+                  <option>Pune</option>
+                  <option>Ahmedabad</option>
+                  <option>Jaipur</option>
+                  <option>Lucknow</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row mt-3">
+              <div class="col-md-6">
+                <label>Date of Journey:</label>
+                <input
+                  id="journeyDate"
+                  type="date"
+                  class="form-control"
+                  required
+                  onchange="validateSearchForm()"
+                />
+              </div>
+              <div class="col-md-6">
+                <label>Class:</label>
+                <select
+                  id="classSelect"
+                  class="form-control"
+                  required
+                  onchange="validateSearchForm()"
+                >
+                  <option value="" disabled selected>Select Class:</option>
+                  <option>General</option>
+                  <option>Sleeper Class</option>
+                  <option>2 Tier AC</option>
+                  <option>3 Tier AC</option>
+                </select>
+              </div>
+            </div>
+            <div class="checkbox-container">
+              <label>
+                <input type="checkbox" /> Person With Disability Concession
+              </label>
+              <label> <input type="checkbox" /> Flexible With Date </label>
+              <label>
+                <input type="checkbox" /> Train with Available Berth
+              </label>
+              <label> <input type="checkbox" /> Railway Pass Concession </label>
+            </div>
+            <div class="btn-container mt-3">
+              <button
+                id="searchButton"
+                class="btn btn-primary btn-medium"
+                onclick="validateAndSearch(event)"
+                disabled
+              >
+                Search
+              </button>
+              <button class="btn btn-warning btn-medium">Ask Disha</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <section class="steps-section" id="steps">
+      <div class="container">
+        <h1>How to Book a Ticket</h1>
+        <div class="row" style="margin-top: 60px">
+          <div class="col-md-3">
+            <div class="step-box">
+              <i class="fas fa-user"></i>
+              <h4>Step 1</h4>
+              <p>Login or Register on our platform.</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="step-box">
+              <i class="fas fa-search"></i>
+              <h4>Step 2</h4>
+              <p>Search for available trains on your desired route.</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="step-box">
+              <i class="fas fa-ticket-alt"></i>
+              <h4>Step 3</h4>
+              <p>Select your preferred train and class.</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="step-box">
+              <i class="fas fa-credit-card"></i>
+              <h4>Step 4</h4>
+              <p>Make the payment and receive your e-ticket.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Enhanced About Us Section -->
+    <section class="about-section" id="aboutus">
+      <div class="container">
+        <h2 style="color: #fff">About Us</h2>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="about-card">
+              <i class="fas fa-history"></i>
+              <h4>Our Legacy</h4>
+              <p>
+                Serving millions of passengers since 1853, we're India's largest
+                and most trusted railway network, connecting people and places
+                across the nation.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="about-card">
+              <i class="fas fa-bullseye"></i>
+              <h4>Our Mission</h4>
+              <p>
+                To provide safe, efficient, and comfortable travel experiences
+                while continuously innovating and modernizing our services for
+                better customer satisfaction.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="about-card">
+              <i class="fas fa-users"></i>
+              <h4>Our Commitment</h4>
+              <p>
+                We're committed to excellence in service, passenger safety, and
+                environmental sustainability, making your journey comfortable
+                and memorable.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- New Accordion Section -->
+        <div class="accordion-section">
+          <div class="accordion custom-accordion" id="aboutAccordion">
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h2 class="mb-0">
+                  <button
+                    class="btn btn-link"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#collapseOne"
+                  >
+                    <i class="fas fa-train mr-2"></i> Our Network
+                  </button>
+                </h2>
+              </div>
+              <div
+                id="collapseOne"
+                class="collapse show"
+                data-parent="#aboutAccordion"
+              >
+                <div class="card-body">
+                  Our railway network spans over 67,000 kilometers, making it
+                  one of the largest in the world. We connect more than 7,300
+                  stations across India, operating over 20,000 passenger trains
+                  daily and serving billions of passengers annually.
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header" id="headingTwo">
+                <h2 class="mb-0">
+                  <button
+                    class="btn btn-link collapsed"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#collapseTwo"
+                  >
+                    <i class="fas fa-cog mr-2"></i> Our Services
+                  </button>
+                </h2>
+              </div>
+              <div
+                id="collapseTwo"
+                class="collapse"
+                data-parent="#aboutAccordion"
+              >
+                <div class="card-body">
+                  We offer various classes of travel to suit every budget and
+                  preference, from luxurious first-class AC coaches to
+                  economical general class. Our services include e-ticketing,
+                  food delivery, wheelchair assistance, and real-time train
+                  tracking.
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header" id="headingThree">
+                <h2 class="mb-0">
+                  <button
+                    class="btn btn-link collapsed"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#collapseThree"
+                  >
+                    <i class="fas fa-shield-alt mr-2"></i> Safety & Security
+                  </button>
+                </h2>
+              </div>
+              <div
+                id="collapseThree"
+                class="collapse"
+                data-parent="#aboutAccordion"
+              >
+                <div class="card-body">
+                  Passenger safety is our top priority. We implement rigorous
+                  safety protocols, regular track maintenance, and modern
+                  signaling systems. Our dedicated Railway Protection Force
+                  ensures security across all stations and trains.
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header" id="headingFour">
+                <h2 class="mb-0">
+                  <button
+                    class="btn btn-link collapsed"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#collapseFour"
+                  >
+                    <i class="fas fa-leaf mr-2"></i> Environmental Initiatives
+                  </button>
+                </h2>
+              </div>
+              <div
+                id="collapseFour"
+                class="collapse"
+                data-parent="#aboutAccordion"
+              >
+                <div class="card-body">
+                  We're committed to reducing our environmental impact through
+                  solar power initiatives, bio-toilets in trains, water
+                  recycling systems, and increasing electrification of our
+                  network to reduce carbon emissions.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer class="footer" id="contactus">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 col-sm-6">
+            <h5>Quick Links</h5>
+            <ul class="footer-links">
+              <li>
+                <a href="R1.html"
+                  ><i class="fas fa-chevron-right mr-2"></i>Home</a
+                >
+              </li>
+              <li>
+                <a href="R1.html"
+                  ><i class="fas fa-chevron-right mr-2"></i>Book Tickets</a
+                >
+              </li>
+              <li>
+                <a href="#"
+                  ><i class="fas fa-chevron-right mr-2"></i>PNR Status</a
+                >
+              </li>
+              <li>
+                <a href="TicketCancellation.html"
+                  ><i class="fas fa-chevron-right mr-2"></i>Cancellations</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <h5>Travel Info</h5>
+            <ul class="footer-links">
+              <li>
+                <a href="#"
+                  ><i class="fas fa-chevron-right mr-2"></i>Train Schedule</a
+                >
+              </li>
+              <li>
+                <a href="#"
+                  ><i class="fas fa-chevron-right mr-2"></i>Travel Insurance</a
+                >
+              </li>
+              <li>
+                <a href="#"
+                  ><i class="fas fa-chevron-right mr-2"></i>Holiday Packages</a
+                >
+              </li>
+              <li>
+                <a href="#"
+                  ><i class="fas fa-chevron-right mr-2"></i>Travel Guidelines</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <h5>Contact Info</h5>
+            <ul class="footer-links">
+              <li><i class="fas fa-phone mr-2"></i>+91 1800-111-139</li>
+              <li>
+                <i class="fas fa-envelope mr-2"></i>care@indianrail.gov.in
+              </li>
+              <li>
+                <i class="fas fa-map-marker-alt mr-2"></i>New Delhi, India
+              </li>
+              <li><i class="fas fa-clock mr-2"></i>24/7 Support</li>
+            </ul>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <h5>Connect With Us</h5>
+            <div class="social-links">
+              <a href="https://www.facebook.com"
+                ><i
+                  class="fab fa-facebook-f"
+                  style="
+                    color: white;
+                    font-size: 25px;
+                    background-color: blue;
+                    padding: 5px 7px;
+                    border-radius: 200px;
+                  "
+                ></i
+              ></a>
+              <a href="https://www.x.com"
+                ><i
+                  class="fab fa-twitter"
+                  style="
+                    color: white;
+                    font-size: 24px;
+                    background-color: blue;
+                    padding: 5px;
+                    border-radius: 200px;
+                  "
+                ></i
+              ></a>
+              <a href="https://www.instagram.com"
+                ><i
+                  class="fab fa-instagram grad"
+                  style="
+                    color: white;
+                    font-size: 24px;
+                    padding: 5px;
+                    border-radius: 200px;
+                  "
+                ></i
+              ></a>
+              <a href="https://www.linkedin.com"
+                ><i
+                  class="fab fa-linkedin-in"
+                  style="
+                    color: white;
+                    font-size: 25px;
+                    background-color: blue;
+                    padding: 5px;
+                    border-radius: 200px;
+                  "
+                ></i
+              ></a>
+              <a href="https://www.youtube.com"
+                ><i
+                  class="fab fa-youtube"
+                  style="color: red; font-size: 24px; margin-top: 6px"
+                ></i
+              ></a>
+              <a href="https://telegram.org/"
+                ><i
+                  class="fab fa-telegram"
+                  style="color: skyblue; font-size: 38px"
+                ></i
+              ></a>
+              <a href="https://www.whatsapp.com"
+                ><i
+                  class="fab fa-whatsapp grad2"
+                  style="
+                    color: white;
+                    font-size: 24px;
+                    padding: 5px;
+                    border-radius: 200px;
+                  "
+                ></i
+              ></a>
+            </div>
+            <div class="mt-4">
+              <h5>Download Our App</h5>
+              <a
+                href="https://play.google.com"
+                class="btn btn-warning btn-sm mt-2"
+                ><i class="fab fa-google-play mr-2"></i>Google Play</a
+              >
+              <a
+                href="https://www.apple.com/app-store/"
+                class="btn btn-warning btn-sm mt-2"
+                ><i class="fab fa-apple mr-2"></i>App Store</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 Indian Railways. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JavaScript Section -->
+    <script>
+      // --- Validate search form before proceeding ---
+      function validateAndSearch(e) {
+        e.preventDefault();
+        var from = document.getElementById("fromSelect").value;
+        var to = document.getElementById("toSelect").value;
+        var date = document.getElementById("journeyDate").value;
+        var cls = document.getElementById("classSelect").value;
+        if (from === to) {
+          alert(
+            "Same source and destination are not allowed. Please select different locations."
+          );
+          document.getElementById("fromSelect").value = "";
+          document.getElementById("toSelect").value = "";
+          validateSearchForm();
+          return;
+        }
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+        var selectedDate = new Date(date);
+        selectedDate.setHours(0, 0, 0, 0);
+        if (selectedDate < today) {
+          alert(
+            "Please select today's date or a future date for ticket booking."
+          );
+          document.getElementById("journeyDate").value = "";
+          validateSearchForm();
+          return;
+        }
+        var url =
+          "TicketBooking.html?from=" +
+          encodeURIComponent(from) +
+          "&to=" +
+          encodeURIComponent(to) +
+          "&date=" +
+          encodeURIComponent(date) +
+          "&class=" +
+          encodeURIComponent(cls);
+        window.location.href = url;
+      }
+
+      // --- Function to swap the values of "From" and "To" fields ---
+      function swapLocations() {
+        var fromField = document.getElementById("fromSelect");
+        var toField = document.getElementById("toSelect");
+        var temp = fromField.value;
+        fromField.value = toField.value;
+        toField.value = temp;
+        validateSearchForm();
+      }
+
+      // --- Function to check if all fields are valid and enable/disable the search button ---
+      function validateSearchForm() {
+        var from = document.getElementById("fromSelect").value;
+        var to = document.getElementById("toSelect").value;
+        var date = document.getElementById("journeyDate").value;
+        var cls = document.getElementById("classSelect").value;
+        var searchButton = document.getElementById("searchButton");
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+        var validDate = false;
+        if (date) {
+          var selectedDate = new Date(date);
+          selectedDate.setHours(0, 0, 0, 0);
+          validDate = selectedDate >= today;
+        }
+        if (from && to && from !== to && date && validDate && cls) {
+          searchButton.disabled = false;
+        } else {
+          searchButton.disabled = true;
+        }
+      }
+
+      // --- Initialization function called via inline onload ---
+      function init() {
+        var journeyDate = document.getElementById("journeyDate");
+        var todayStr = new Date().toISOString().split("T")[0];
+        journeyDate.setAttribute("min", todayStr);
+        validateSearchForm();
+        updateClock(); // Initialize clock immediately
+      }
+
+      // --- Clock Update ---
+      function updateClock() {
+        let now = new Date();
+        let timeString = now.toLocaleTimeString();
+        document.getElementById("clock").innerText = timeString;
+      }
+      setInterval(updateClock, 1000);
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>
