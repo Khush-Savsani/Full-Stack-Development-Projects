@@ -1,0 +1,424 @@
+/* Footer Styles */
+.footer {
+  background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+  color: #ffffff;
+  padding: 70px 0 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 -5px 30px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #00b4d8, #90e0ef, #00b4d8);
+  background-size: 200% auto;
+  animation: gradient 3s linear infinite;
+}
+
+@keyframes gradient {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  position: relative;
+  z-index: 1;
+  align-items: start;
+}
+
+.footer-section {
+  padding: 0 10px;
+  margin-bottom: 0;
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.footer-section:hover {
+  transform: translateY(-5px);
+}
+
+.footer-section h3 {
+  color: #ffffff;
+  font-size: 24px;
+  margin-bottom: 25px;
+  position: relative;
+  padding-bottom: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.footer-section h3::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(90deg, #00b4d8, #90e0ef);
+  border-radius: 2px;
+}
+
+.footer-section h4 {
+  color: #ffffff;
+  font-size: 18px;
+  margin-bottom: 25px;
+  position: relative;
+  padding-bottom: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.footer-section h4::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(90deg, #00b4d8, #90e0ef);
+  border-radius: 2px;
+}
+
+.footer-section p {
+  color: #d1d5db;
+  line-height: 1.8;
+  margin-bottom: 20px;
+  font-size: 15px;
+  font-weight: 300;
+}
+
+.footer-contact p {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+}
+
+.footer-contact p:hover {
+  color: #ffffff;
+  transform: translateX(5px);
+}
+
+.footer-contact svg {
+  color: #00b4d8;
+  width: 16px;
+  transition: all 0.3s ease;
+}
+
+.footer-contact p:hover svg {
+  color: #90e0ef;
+  transform: scale(1.2);
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 15px;
+  position: relative;
+  padding-left: 0;
+  transition: all 0.3s ease;
+}
+
+.footer-section ul li:hover {
+  padding-left: 10px;
+}
+
+.footer-section ul li a {
+  color: #d1d5db;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 300;
+  transition: all 0.3s ease;
+  display: inline-block;
+  position: relative;
+  padding-left: 0;
+}
+
+.footer-section ul li a::before {
+  content: '→';
+  position: absolute;
+  left: -20px;
+  color: #00b4d8;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.footer-section ul li:hover a {
+  color: #ffffff;
+  padding-left: 20px;
+}
+
+.footer-section ul li:hover a::before {
+  opacity: 1;
+  left: 0;
+}
+
+/* Social Icons */
+.social-icons {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  margin: 25px 0 10px 0;
+  padding: 10px 0 15px 0;
+  overflow-x: auto;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+}
+
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  font-size: 16px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
+.social-icon::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(0);
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.social-icon:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  border-color: transparent;
+}
+
+.social-icon:hover::before {
+  transform: scale(1.5);
+  opacity: 0;
+}
+
+/* Individual social media colors */
+.social-icon.facebook:hover {
+  background: #1877f2;
+  color: white;
+  text-shadow: 0 0 10px rgba(24, 119, 242, 0.7);
+}
+
+.social-icon.x:hover {
+  background: #000000;
+  color: white;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
+
+.social-icon.instagram:hover {
+  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+  color: white;
+  text-shadow: 0 0 10px rgba(220, 39, 67, 0.7);
+}
+
+.social-icon.linkedin:hover {
+  background: #0a66c2;
+  color: white;
+  text-shadow: 0 0 10px rgba(10, 102, 194, 0.7);
+}
+
+.social-icon.youtube:hover {
+  background: #ff0000;
+  color: white;
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+}
+
+.social-icon.whatsapp:hover {
+  background: #25d366;
+  color: white;
+  text-shadow: 0 0 10px rgba(37, 211, 102, 0.7);
+}
+
+/* Footer Bottom */
+.footer-bottom {
+  background: rgba(0, 0, 0, 0.25);
+  padding: 25px 0;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+  color: #d1d5db;
+  margin-top: 50px;
+  position: relative;
+}
+
+.footer-bottom::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 5%;
+  width: 90%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .footer-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 50px 0 0;
+  }
+  
+  .footer-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 0 20px;
+    gap: 40px;
+  }
+  
+  .footer-section {
+    margin-bottom: 30px;
+  }
+  
+  .footer-section h3,
+  .footer-section h4 {
+    text-align: center;
+  }
+  
+  .footer-section h3::after,
+  .footer-section h4::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .footer-contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .social-icons {
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .footer-bottom {
+    margin-top: 30px;
+    padding: 20px 0;
+  }
+}
+
+/* Animation for social icons */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0px); }
+}
+
+.social-icon {
+  animation: float 3s ease-in-out infinite;
+}
+
+.social-icon:nth-child(2) { animation-delay: 0.2s; }
+.social-icon:nth-child(3) { animation-delay: 0.4s; }
+.social-icon:nth-child(4) { animation-delay: 0.6s; }
+.social-icon:nth-child(5) { animation-delay: 0.8s; }
+.social-icon:nth-child(6) { animation-delay: 1s; }
+
+/* Store buttons (Play Store / App Store) */
+.store-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.store-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #ffffff;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 10px 14px;
+  border-radius: 12px; /* rounded rectangle */
+  transition: transform .25s ease, box-shadow .25s ease, background .25s ease, border-color .25s ease;
+  min-width: 180px;
+}
+
+.store-btn .store-ic {
+  display: inline-grid;
+  place-items: center;
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.08);
+}
+
+.store-btn .store-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.store-btn .store-text small {
+  font-size: 10px;
+  letter-spacing: 1px;
+  opacity: 0.85;
+}
+
+.store-btn .store-text strong {
+  font-size: 14px;
+}
+
+/* Hover effects */
+.store-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.25);
+  border-color: transparent;
+}
+
+/* Brand accents on hover */
+.store-btn.play:hover {
+  background: linear-gradient(90deg, #34a853, #1e7a3b);
+}
+.store-btn.app:hover {
+  background: linear-gradient(90deg, #0070c9, #004e8f);
+}
+
+@media (max-width: 768px) {
+  .store-btn { width: 100%; justify-content: center; }
+}

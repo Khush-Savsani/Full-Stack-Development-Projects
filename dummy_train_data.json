@@ -1,0 +1,37 @@
+{
+  "data": [
+    {
+      "train_number": "12957",
+      "train_name": "ADI NDLS RAJDHANI",
+      "from_station_code": "ADI",
+      "to_station_code": "JND",
+      "departure_time": "17:00",
+      "arrival_time": "07:30",
+      "duration": "14:30",
+      "running_days": ["Mon", "Wed", "Fri"],
+      "class_type": ["3A", "2A", "1A"]
+    },
+    {
+      "train_number": "12925",
+      "train_name": "PASCHIM EXPRESS",
+      "from_station_code": "ADI",
+      "to_station_code": "JND",
+      "departure_time": "10:00",
+      "arrival_time": "05:20",
+      "duration": "19:20",
+      "running_days": ["Daily"],
+      "class_type": ["3A", "2A", "Sleeper"]
+    },
+    {
+      "train_number": "12010",
+      "train_name": "MMCT SHATABDI EXP",
+      "from_station_code": "ADI",
+      "to_station_code": "MMCT",
+      "departure_time": "03:10",
+      "arrival_time": "09:45",
+      "duration": "06:35",
+      "running_days": ["Daily"],
+      "class_type": ["1A", "2A", "Sleeper"]
+    }
+  ]
+}

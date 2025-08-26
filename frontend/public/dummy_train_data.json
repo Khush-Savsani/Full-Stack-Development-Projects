@@ -1,0 +1,36 @@
+{
+  "data": [
+    {
+      "train_number": "12957",
+      "train_name": "ADI NDLS RAJDHANI",
+      "from_station_code": "ADI",
+      "to_station_code": "JND",
+      "departure_time": "17:00",
+      "arrival_time": "07:30",
+      "duration": "14:30",
+      "running_days": ["Mon", "Wed", "Fri"],
+      "class_type": ["3A", "2A", "1A"],
+      "classes": [
+        { "code": "3A", "status": "Available", "price": "₹1100" },
+        { "code": "2A", "status": "WL 18", "price": "₹1450" },
+        { "code": "1A", "status": "Not Available", "price": "" }
+      ]
+    },
+    {
+      "train_number": "12925",
+      "train_name": "PASCHIM EXPRESS",
+      "from_station_code": "ADI",
+      "to_station_code": "JND",
+      "departure_time": "10:00",
+      "arrival_time": "05:20",
+      "duration": "19:20",
+      "running_days": ["Daily"],
+      "class_type": ["3A", "2A", "Sleeper"],
+      "classes": [
+        { "code": "3A", "status": "Available", "price": "₹980" },
+        { "code": "2A", "status": "Available", "price": "₹1350" },
+        { "code": "SL", "status": "WL 12", "price": "₹420" }
+      ]
+    }
+  ]
+}
